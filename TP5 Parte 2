@@ -1,12 +1,20 @@
 #!/bin/bash
+
 nombre=""
+
 echo "Ingrese un nombre:"
 read nombre
+
 response=$(curl -s "https://api.genderize.io/?name=${nombre}")
 genero=$(echo $response | jq -r '.gender')
 
 if [ "$genero" != "null" ]; then
     echo "El género de $nombre es: $genero"
+
+elif [ "$nombre" = "male" ]; then
+    echo "Masculino"
+
 else
     echo "No se pudo determinar el género para el nombre $nombre."
+
 fi
